@@ -19,8 +19,7 @@ D - owners, dogs, reviews, businesses, appointments
         - An `Owner` has many `Dogs`, `Reviews`, `Appointments`
             - When an `Owner` gets deleted, it will delete all `Dogs` and `Appointments` associated with it
     - Validations
-        - Must have `name` and `phone_number`
-        - `email` will be optional and default to None if not provided
+        - Must have `name`, `phone_number`, and `email`
         - `coordinates` is a part of the stretch goal but would also be optional and default to None if the user does not want to use their location
 - Dogs
     - This table will store information related to a dog
