@@ -15,49 +15,41 @@ D - owners, dogs, reviews, businesses, appointments
 ### Models
 - Owners
     - This table will store information related to a dog's owner
-    - Validations
-        - Name and phone number will both be mandatory when creating an instance of Owner
-        - Email will be optional and default to None if not provided
-        - Coordinates is a part of the stretch goal but would also be optional and default to None if the user does not want to use their location
     - Relationships
-        - This table has a one-to-many relationship with dogs (an owner can have multiple dogs)
-            - When an owner gets deleted, it will delete all dogs associated with that owner
-        - This table has a one-to-many relationship with reviews (an owner can have multiple reviews)
-        - This table has a one-to-many relationship with appointments through dogs (an owner can have multiple appointments)
-            - When an owner gets deleted, it will delete all appointments associated with that owner
+        - An `Owner` has many `Dogs`, `Reviews`, `Appointments`
+            - When an `Owner` gets deleted, it will delete all `Dogs` and `Appointments` associated with it
+    - Validations
+        - Must have `name` and `phone_number`
+        - `email` will be optional and default to None if not provided
+        - `coordinates` is a part of the stretch goal but would also be optional and default to None if the user does not want to use their location
 - Dogs
     - This table will store information related to a dog
-    - Validations
-     - Name and breed will both be mandatory when creating an instance of Dog
     - Relationships
-        - This table has a many-to-one relationship with owners (a dog can only have one owner)
-        - This table has a one-to-many relationship with appointments (a dog can have multiple appointments)
-            - When a dog gets deleted, it will delete all appointments associated with that dog
+        - A `Dog` has one `Owner`
+        - A `Dog` has many `Appointments`
+            - When a `Dog` gets deleted, it will delete all `Appointments` associated with it
+    - Validations
+        - Must have `name` and `breed`
 - Businesses
     - This table will store information related to a business
-    - Validations
-        - Name, address, and phone number will all be mandatory when creating an instance of Business
-        - Coordinates is part of the stretch goal but would be mandatory for creating an instance of business
     - Relationships
-        - This table has a one-to-many relationship with appointments (a business can have multiple appointments)
-            - When a business gets deleted, it will delete all appointments associated with that business
-        - This table has a one-to-many relationship with reviews (a business can have multiple reviews)
-            - When a business gets deleted, it will delete all reviews associated with that business
+        - A `Business` has many `Appointments` and `Reviews`
+            - When a `Business` gets delete, it will delete all `Appointments` and `Reviews` associated with it
+    - Validations
+        - Must have a `name`, `address`, and `phone_number`
+        - `coordinates` is part of the stretch goal but would be mandatory for creating an instance of business
 - Reviews
     - This table will store information related to a review a customer (owner) would leave for a business
-    - Validations
-        - Rating and description will both be mandatory when creating an instance of Review
     - Relationships
-        - This table has a many-to-one relationship with owners (a review can only have one owner)
-        - This table has a many-to-one relatiosnip with businesses (a review can only have one business)
+        - A `Review` has one `Owners` and one `Business`
+    - Validations
+        - Must have a `rating` and `description`
 - Appointments
     - This table will store information related to appointments and when those are created
-    - Validations
-        - Price, in time, out time, in date, and out date will all be mandatory when creating an instance of Appointment
     - Relationships
-        - This table has a many-to-one relationship with businesses (an appointment can only have one business)
-        - This table has a many-to-one relationship with dogs (an appointment can only have one dog)
-        - This table has a many-to-one relationship with owners through dogs (an appointment can only have one owner)
+        - An `Appointment` has one `Business`, one `Dog`, and one `Owner` 
+    - Validations
+        - Must have a `price`, `in_time`, `out_time`, `in_date`, and `out_date`
 
 ## **Controllers**
 API routes
@@ -123,3 +115,9 @@ DELETE /appointments/<int:id>
 - Tuesday: Make sure frontend is good and connected to backend, then start working on stretch goals and styling
 - Wednesday & Thursday: Work on stretch goals and making it look presentable.  Make sure README is updated!
 - Friday (2/16): Present!
+
+## **Tools/Libraries Utilized**
+- SQLite
+- Datetime
+- Drawio
+- dbdiargram
