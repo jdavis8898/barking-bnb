@@ -16,7 +16,7 @@ D - owners, dogs, reviews, businesses, appointments
 - Owners
     - This table will store information related to a dog's owner
     - Relationships
-        - An `Owner` has many `Dogs`, `Reviews`, `Appointments`
+        - An `Owner` has many `Dogs`, `Reviews`, and `Appointments`
             - When an `Owner` gets deleted, it will delete all `Dogs` and `Appointments` associated with it
     - Validations
         - Must have `name`, `phone_number`, and `email`
