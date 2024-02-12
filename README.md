@@ -55,8 +55,8 @@ API routes
 RESTful conventions
 
 ```
-GET /owners/
-POST /owners/
+GET /owners
+POST /owners
 ```
 
 ```
@@ -66,8 +66,8 @@ DELETE /owners/<int:id>
 ```
 
 ```
-GET /dogs/
-POST /dogs/
+GET /dogs
+POST /dogs
 ```
 
 ```
@@ -77,8 +77,8 @@ DELETE /dogs/<int:id>
 ```
 
 ```
-GET /businesses/
-POST /businesses/
+GET /businesses
+POST /businesses
 ```
 
 ```
@@ -88,8 +88,8 @@ DELETE /businesses/<int:id>
 ```
 
 ```
-GET /reviews/
-POST /reviews/
+GET /reviews
+POST /reviews
 ```
 
 ```
@@ -99,8 +99,8 @@ DELETE /reviews/<int:id>
 ```
 
 ```
-GET /appointments/
-POST /appointments/
+GET /appointments
+POST /appointments
 ```
 
 ```

@@ -33,7 +33,7 @@ def index():
 
 class Owners(Resource):
     def get(self):
-        owners = [owner.to_dict() for owner in Owner.query.all()]
+        owners = [owner.to_dict(rules=("-reviews", "-dogs.appointments")) for owner in Owner.query.all()]
 
         response = make_response(
             owners,
@@ -77,7 +77,7 @@ class OwnersById(Resource):
         
         else:
             response = make_response(
-                owner.to_dict(),
+                owner.to_dict(rules=("-reviews", "-dogs.appointments")),
                 200
             )
         
@@ -123,7 +123,7 @@ api.add_resource(OwnersById, "/owners/<int:id>")
 
 class Dogs(Resource):
     def get(self):
-        dogs = [dog.to_dict() for dog in Dog.query.all()]
+        dogs = [dog.to_dict(rules=("-reviews", "-appointments", "-owner.reviews")) for dog in Dog.query.all()]
 
         response = make_response(
             dogs,
@@ -167,7 +167,7 @@ class DogsById(Resource):
         
         else:
             response = make_response(
-                dog.to_dict(),
+                dog.to_dict(rules=("-reviews", "-appointments", "-owner.reviews")),
                 200
             )
         
@@ -213,7 +213,7 @@ api.add_resource(DogsById, "/dogs/<int:id>")
 
 class Businesses(Resource):
     def get(self):
-        businesses = [business.to_dict() for business in Business.query.all()]
+        businesses = [business.to_dict(rules=("-reviews", "-appointments")) for business in Business.query.all()]
 
         response = make_response(
             businesses,
@@ -257,7 +257,7 @@ class BusinessesById(Resource):
         
         else:
             response = make_response(
-                business.to_dict(),
+                business.to_dict(rules=("-reviews", "-appointments")),
                 200
             )
         

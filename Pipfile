@@ -6,12 +6,12 @@ name = "pypi"
 [packages]
 ipdb = "0.13.9"
 flask = "*"
-flask-sqlalchemy = "3.0.3"
+flask_sqlalchemy = "3.0.3"
 Werkzeug = "2.2.2"
-flask-migrate = "*"
+flask_migrate = "*"
 sqlalchemy-serializer = "*"
-flask-restful = "*"
-flask-cors = "*"
+flask_restful = "*"
+flask_cors = "*"
 faker = "*"
 
 [requires]
