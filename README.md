@@ -8,7 +8,7 @@ Barking B&B is an application that will allow users to sign their pups up to a d
 ![ERD](https://i.imgur.com/KM4JX8v.png)
 ## **MVP**
 C - owners, dogs, reviews, businesses, appointments\
-R - reviews, businesses\
+R - owners, dogs, reviews, businesses, appointments\
 U - owners, dogs, reviews, businesses, appointments\
 D - owners, dogs, reviews, businesses, appointments
 ## **Backend**
@@ -55,19 +55,23 @@ API routes
 RESTful conventions
 
 ```
+GET /owners/
 POST /owners/
 ```
 
 ```
+GET /owners/<int:id>
 PATCH /owners/<int:id>
 DELETE /owners/<int:id>
 ```
 
 ```
+GET /dogs/
 POST /dogs/
 ```
 
 ```
+GET /dogs/<int:id>
 PATCH /dogs/<int:id>
 DELETE /dogs/<int:id>
 ```
@@ -95,10 +99,12 @@ DELETE /reviews/<int:id>
 ```
 
 ```
+GET /appointments/
 POST /appointments/
 ```
 
 ```
+GET /appointments/<int:id>
 PATCH /appointments/<int:id>
 DELETE /appointments/<int:id>
 ```
