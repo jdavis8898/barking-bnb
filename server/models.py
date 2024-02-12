@@ -4,7 +4,7 @@ from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 
-from config import db
+# from config import db
 
 
 metadata = MetaData(naming_convention={
@@ -25,7 +25,7 @@ class Owner(db.Model, SerializerMixin):
     # Relationsips
     dogs = db.relationship("Dog", back_populates = "owner", cascade = "all, delete-orphan")
     reviews = db.relationship("Review", back_populates = "owner")
-    appointments = db.relationship("Appointment", back_populates = "owner", cascade = "all, delete-orphan")
+    # appointments = db.relationship("Appointment", back_populates = "owner", cascade = "all, delete-orphan")
     
     # Serialization
     serialize_rules = ("-dogs.owner", "-reviews.owner", "-appointments.owner")
@@ -34,7 +34,7 @@ class Owner(db.Model, SerializerMixin):
     @validates("name", "phone_number", "email")
     def validates_owner(self, key, value):
         if not value:
-            raise ValueError(f"{value} is not a valid f{key}.")
+            raise ValueError(f"{value} is not a valid {key}.")
         return value
     
     def __repr__(self):
@@ -61,7 +61,7 @@ class Dog(db.Model, SerializerMixin):
     @validates("name", "breed")
     def validates_dog(self, key, value):
         if not value:
-            raise ValueError(f"{value} is not a valid f{key}.")
+            raise ValueError(f"{value} is not a valid {key}.")
         return value
     
     def __repr__(self):
@@ -87,7 +87,7 @@ class Business(db.Model, SerializerMixin):
     @validates("name", "phone_number", "address")
     def validates_business(self, key, value):
         if not value:
-            raise ValueError(f"{value} is not a valid f{key}.")
+            raise ValueError(f"{value} is not a valid {key}.")
         return value
     
     def __repr__(self):
@@ -115,7 +115,7 @@ class Review(db.Model, SerializerMixin):
     @validates("rating", "description")
     def validates_review(self, key, value):
         if not value:
-            raise ValueError(f"{value} is not a valid f{key}.")
+            raise ValueError(f"{value} is not a valid {key}.")
         return value
     
     def __repr__(self):
@@ -125,11 +125,11 @@ class Appointment(db.Model, SerializerMixin):
     __tablename__ = 'appointments'
 
     id = db.Column(db.Integer, primary_key=True)
-    price = db.Column(db.Float)
-    in_time = db.Column(db.Integer)
-    out_time = db.Column(db.Integer)
-    in_date = db.Column(db.Integer)
-    out_date = db.Column(db.Integer)
+    price = db.Column(db.String)
+    in_time = db.Column(db.String)
+    out_time = db.Column(db.String)
+    in_date = db.Column(db.String)
+    out_date = db.Column(db.String)
 
     # Foreign Keys
     dog_id = db.Column(db.Integer, db.ForeignKey("dogs.id"))
@@ -138,7 +138,7 @@ class Appointment(db.Model, SerializerMixin):
     # Relationships
     business = db.relationship("Business", back_populates = "appointments")
     dog = db.relationship("Dog", back_populates = "appointments")
-    owner = db.relationship("Owner", back_populates = "appointments")
+    # owner = db.relationship("Owner", back_populates = "appointments")
     
     # Serialization
     serialize_rules = ("-business.appointments", "-dog.appointments", "-owner.appointments")
@@ -147,7 +147,7 @@ class Appointment(db.Model, SerializerMixin):
     @validates("price", "in_time", "out_time", "in_date", "out_date")
     def validates_appointment(self, key, value):
         if not value:
-            raise ValueError(f"{value} is not a valid f{key}.")
+            raise ValueError(f"{value} is not a valid {key}.")
         return value
     
     def __repr__(self):

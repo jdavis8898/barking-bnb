@@ -10,7 +10,7 @@ from flask_restful import Api, Resource
 import os
 
 # Local imports
-from config import app, db, api
+# from config import app, db, api
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 DATABASE = os.environ.get(
