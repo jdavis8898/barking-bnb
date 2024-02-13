@@ -17,7 +17,7 @@ def create_owners():
     for _ in range(20):
         o = Owner(
             name=fake.name(),
-            phone_number=fake.phone_number(),
+            phone_number=fake.msisdn()[:10],
             email=fake.email(),
         )
         owners.append(o)
@@ -49,21 +49,21 @@ def create_businesses():
     b = Business(
         name="4 Paws Pet Resort & Activity Center",
         address=fake.address(),
-        phone_number=fake.phone_number()
+        phone_number=fake.msisdn()[:10]
     )
     businesses.append(b)
 
     b2 = Business(
         name="Free Spirit Doggy Daycare",
         address=fake.address(),
-        phone_number=fake.phone_number()
+        phone_number=fake.msisdn()[:10]
     )
     businesses.append(b2)
 
     b3 = Business(
         name="Doggie Works",
         address=fake.address(),
-        phone_number=fake.phone_number()
+        phone_number=fake.msisdn()[:10]
     )
     businesses.append(b3)
 

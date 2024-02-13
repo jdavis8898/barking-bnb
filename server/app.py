@@ -394,7 +394,7 @@ api.add_resource(ReviewsById, "/reviews/<int:id>")
 
 class Appointments(Resource):
     def get(self):
-        appointments = [appointment.to_dict() for appointment in Appointment.query.all()]
+        appointments = [appointment.to_dict(rules=("-business.reviews",)) for appointment in Appointment.query.all()]
 
         response = make_response(
             appointments,
@@ -442,7 +442,7 @@ class AppointmentsById(Resource):
         
         else:
             response = make_response(
-                appointment.to_dict(),
+                appointment.to_dict(rules=("-business.reviews",)),
                 200
             )
         

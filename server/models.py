@@ -31,10 +31,22 @@ class Owner(db.Model, SerializerMixin):
     serialize_rules = ("-dogs.owner", "-reviews.owner", "-appointments.owner")
 
     # Validations
-    @validates("name", "phone_number", "email")
-    def validates_owner(self, key, value):
+    @validates("name")
+    def validates_name(self, key, value):
         if not value:
             raise ValueError(f"{value} is not a valid {key}.")
+        return value
+    
+    @validates("phone_number")
+    def validates_phone_number(self, key, value):
+        if not len(value) == 10:
+            raise ValueError("phone_number must be 9 digits long.")
+        return value
+    
+    @validates("email")
+    def validates_email(self, key, value):
+        if "@" not in value:
+            raise ValueError("email not valid")
         return value
     
     def __repr__(self):
@@ -84,10 +96,16 @@ class Business(db.Model, SerializerMixin):
     serialize_rules = ("-appointments.business", "-reviews.business")
     
     # Validations
-    @validates("name", "phone_number", "address")
+    @validates("name", "address")
     def validates_business(self, key, value):
         if not value:
             raise ValueError(f"{value} is not a valid {key}.")
+        return value
+    
+    @validates("phone_number")
+    def validates_phone_number(self, key, value):
+        if not len(value) == 10:
+            raise ValueError("phone_number must be 10 digits long.")
         return value
     
     def __repr__(self):
@@ -112,9 +130,15 @@ class Review(db.Model, SerializerMixin):
     serialize_rules = ("-owner.reviews", "-business.reviews")
     
     # Validations
-    @validates("rating", "description")
-    def validates_review(self, key, value):
+    @validates("description")
+    def validates_description(self, key, value):
         if not value:
+            raise ValueError(f"{value} is not a valid {key}.")
+        return value
+
+    @validates("rating")
+    def validates_rating(self, key, value):
+        if not 0 < value < 11:
             raise ValueError(f"{value} is not a valid {key}.")
         return value
     
@@ -144,8 +168,32 @@ class Appointment(db.Model, SerializerMixin):
     serialize_rules = ("-business.appointments", "-dog.appointments", "-owner.appointments")
     
     # Validations
-    @validates("price", "in_time", "out_time", "in_date", "out_date")
-    def validates_appointment(self, key, value):
+    @validates("price")
+    def validates_price(self, key, value):
+        if not value:
+            raise ValueError(f"{value} is not a valid {key}.")
+        return value
+    
+    @validates("in_time")
+    def validates_in_time(self, key, value):
+        if not value:
+            raise ValueError(f"{value} is not a valid {key}.")
+        return value
+    
+    @validates("out_time")
+    def validates_out_time(self, key, value):
+        if not value:
+            raise ValueError(f"{value} is not a valid {key}.")
+        return value
+
+    @validates("in_date")
+    def validates_in_date(self, key, value):
+        if not value:
+            raise ValueError(f"{value} is not a valid {key}.")
+        return value
+
+    @validates("out_date")
+    def validates_out_date(self, key, value):
         if not value:
             raise ValueError(f"{value} is not a valid {key}.")
         return value
