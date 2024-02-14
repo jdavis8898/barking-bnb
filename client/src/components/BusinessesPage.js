@@ -1,41 +1,50 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
-import SearchBusiness from "./SearchBusiness"
+import { Routes, Route } from "react-router-dom";
 import BusinessDetail from "./BusinessDetail"
 import BusinessList from "./BusinessList"
+import NewAppointmentForm from "./NewAppointmentForm"
 
 
 function BusinessesPage() {
     const [businesses, setBusinesses] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
+    const [businessID, setBusinessID] = useState("")
 
     useEffect(() => {
-        fetch("http://localhost:5555/businesses")
-        .then(resp => resp.json()).then(setBusinesses)
+        fetch("/businesses")
+            .then(resp => resp.json()).then(setBusinesses)
     }, [])
 
-    function onHandleSearchChange(e)
-    {
+    function onHandleSearchChange(e) {
         setSearchTerm(e.target.value)
     }
 
     const filteredBySearch = businesses.filter(business => {
-        if(business.name.toLowerCase().includes(searchTerm.toLowerCase())){
+        if (business.name.toLowerCase().includes(searchTerm.toLowerCase())) {
             return true
         }
     })
 
+    function handleBusinessID(id) {
+        setBusinessID(id)
+    }
+
     return (
         <main>
-            <SearchBusiness searchTerm={searchTerm} onHandleSearchChange={onHandleSearchChange} />
             <Routes>
                 <Route
                     path="/businesses"
-                    element={<BusinessList businesses={filteredBySearch} />}
+                    element={<BusinessList businesses={filteredBySearch}
+                        searchTerm={searchTerm}
+                        onHandleSearchChange={onHandleSearchChange} />}
                 />
                 <Route
                     path="/businesses/:id"
-                    element={<BusinessDetail />}
+                    element={<BusinessDetail handleBusinessID={handleBusinessID} />}
+                />
+                <Route
+                    path="/new_appointment_form"
+                    element={<NewAppointmentForm businessID={businessID} />}
                 />
             </Routes>
         </main>

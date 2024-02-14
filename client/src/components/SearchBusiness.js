@@ -1,11 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import React from "react";
 
 
-function SearchBusiness() {
+function SearchBusiness({ searchTerm, onHandleSearchChange }) {
+    function handleChange(e) {
+        onHandleSearchChange(e)
+    }
+
     return (
-        <h1></h1>
+        <div className="searchbar">
+            <label htmlFor="search">Search for Doggie Daycare:</label>
+            <input
+                type="text"
+                id="search"
+                placeholder="Type name of businessto search..."
+                value={searchTerm}
+                onChange={handleChange}
+            />
+        </div>
     )
 }
 
-export default SearchBusiness;
+export default SearchBusiness

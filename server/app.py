@@ -257,7 +257,7 @@ class BusinessesById(Resource):
         
         else:
             response = make_response(
-                business.to_dict(rules=("-reviews", "-appointments")),
+                business.to_dict(rules=("-appointments",)),
                 200
             )
         
@@ -303,7 +303,7 @@ api.add_resource(BusinessesById, "/businesses/<int:id>")
 
 class Reviews(Resource):
     def get(self):
-        reviews = [review.to_dict() for review in Review.query.all()]
+        reviews = [review.to_dict(rules=("-business",)) for review in Review.query.all()]
 
         response = make_response(
             reviews,
@@ -338,7 +338,7 @@ api.add_resource(Reviews, "/reviews")
 
 class ReviewsById(Resource):
     def get(self, id):
-        review = review.query.filter(review.id == id).first()
+        review = Review.query.filter(Review.id == id).first()
 
         if not review:
             response = make_response(
@@ -348,7 +348,7 @@ class ReviewsById(Resource):
         
         else:
             response = make_response(
-                review.to_dict(),
+                review.to_dict(rules=("-business",)),
                 200
             )
         

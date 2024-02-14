@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react"
-import { Switch, Route } from "react-router-dom"
-import { Link } from "react-router-dom"
+import React from "react"
 import Home from "./Home"
-import NavBar from ".NavBar"
+import NavBar from "./NavBar"
 
 function App() {
   return (

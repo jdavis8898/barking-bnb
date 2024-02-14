@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import BusinessesPage from "./BusinessesPage"
 
 function Home() {
     return (
         <div>
-            <h1>
-                Work in Progress
-            </h1>
+            <Link to={`/businesses`}>
+                <button>Browse all doggie daycares</button>
+            </Link>
             <BusinessesPage />
         </div>
     )
