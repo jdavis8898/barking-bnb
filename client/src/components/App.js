@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { Switch, Route } from "react-router-dom"
+import { Link } from "react-router-dom"
 import Home from "./Home"
+import NavBar from ".NavBar"
 
 function App() {
   return (
-    <main>
-      <h1>Barking B&B</h1>
-      <nav></nav>
-    </main>
+    <div className="app">
+      <NavBar />
+      <Home />
+    </div>
   )
 }
 

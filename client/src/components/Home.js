@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import AllBusinesses from "./AllBusinesses"
+import BusinessesPage from "./BusinessesPage"
 
 function Home() {
     return (
-        <h1></h1>
+        <div>
+            <h1>
+                Work in Progress
+            </h1>
+            <BusinessesPage />
+        </div>
     )
 }
 
