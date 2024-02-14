@@ -2,6 +2,7 @@
 
 # Standard library imports
 from random import randint, choice as rc
+from datetime import date
 
 # Remote library imports
 from faker import Faker
@@ -19,6 +20,7 @@ def create_owners():
             name=fake.name(),
             phone_number=fake.msisdn()[:10],
             email=fake.email(),
+            username=fake.first_name()
         )
         owners.append(o)
 
@@ -86,15 +88,20 @@ def create_reviews(owners, businesses):
 
 def create_appointments(dogs, businesses):
     appointments = []
+    morning = [700, 730, 800, 830, 900, 930, 1000, 1030, 1100, 1130, 1200]
+    afternoon = [1230, 1300, 1330, 1400, 1430, 1500, 1530, 1600, 1630, 1700]
+    day = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30']
+    month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+    today = date.today()
  
     for _ in range(5):
 
         a = Appointment(
             price=fake.pricetag(),
-            in_time=fake.time(),
-            out_time=fake.time(),
-            in_date=fake.date(),
-            out_date=fake.date(),
+            in_time=rc(morning),
+            out_time=rc(afternoon),
+            in_date=rc(month)+rc(day)+str(today.year),
+            out_date=rc(month)+rc(day)+str(today.year),
             dog_id=rc(dogs).id,
             business_id=rc(businesses).id
         )

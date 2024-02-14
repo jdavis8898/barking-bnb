@@ -25,8 +25,8 @@ function NewAppointmentForm({ businessID }) {
         e.preventDefault();
 
         const apptPrice = Math.random() * 100
-        const apptInTime = e.target.in_time.value
-        const apptOutTime = e.target.out_time.value
+        const apptInTime = parseInt(e.target.in_time.value)
+        const apptOutTime = parseInt(e.target.out_time.value)
         const apptInDate = e.target.in_date.value
         const apptOutDate = e.target.out_date.value
         const apptDogId = parseInt(e.target.dog_id.value)
@@ -94,14 +94,14 @@ function NewAppointmentForm({ businessID }) {
                 <input
                     type="text"
                     name="in_time"
-                    placeholder="Check-in Time (0700-1900)"
+                    placeholder="Check-in Time (700-1200)"
                     value={formData.in_time}
                     onChange={handleChange}
                 />
                 <input
                     type="text"
                     name="out_time"
-                    placeholder="Check-out Time (0700-1900)"
+                    placeholder="Check-out Time (1230-1900)"
                     value={formData.out_time}
                     onChange={handleChange}
                 />

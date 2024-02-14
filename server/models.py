@@ -13,7 +13,6 @@ metadata = MetaData(naming_convention={
 
 db = SQLAlchemy(metadata=metadata)
 
-
 class Owner(db.Model, SerializerMixin):
     __tablename__ = 'owners'
 
@@ -21,6 +20,7 @@ class Owner(db.Model, SerializerMixin):
     name = db.Column(db.String)
     phone_number = db.Column(db.String)
     email = db.Column(db.String)
+    username = db.Column(db.String)
 
     # Relationsips
     dogs = db.relationship("Dog", back_populates = "owner", cascade = "all, delete-orphan")
@@ -150,8 +150,8 @@ class Appointment(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.String)
-    in_time = db.Column(db.String)
-    out_time = db.Column(db.String)
+    in_time = db.Column(db.Integer)
+    out_time = db.Column(db.Integer)
     in_date = db.Column(db.String)
     out_date = db.Column(db.String)
 
@@ -176,13 +176,13 @@ class Appointment(db.Model, SerializerMixin):
     
     @validates("in_time")
     def validates_in_time(self, key, value):
-        if not value:
+        if not 659 < value < 1201:
             raise ValueError(f"{value} is not a valid {key}.")
         return value
     
     @validates("out_time")
     def validates_out_time(self, key, value):
-        if not value:
+        if not 1200 < value < 1901:
             raise ValueError(f"{value} is not a valid {key}.")
         return value
 

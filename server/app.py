@@ -27,9 +27,65 @@ db.init_app(app)
 
 api = Api(app)
 
+
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
+
+@app.route("/sessions/<string:key>", methods=["GET"])
+def show_session(key):
+    response = make_response({
+        'session': {
+            'session_key': key,
+            'session_value': session[key],
+            'session_accessed': session.accessed,
+        },
+        'cookies': [{cookie: request.cookies[cookie]}
+            for cookie in request.cookies],
+    }, 200)
+
+    return response
+
+# @app.before_request
+# def check_if_logged_in():
+#     if not session["user_id"] and request.endpoint == "owner":
+#         response = make_response({"error": "Unauthorized"}, 401)
+
+#         return response
+
+class Login(Resource):
+    def get(self):
+        usernames = [owner.to_dict(rules=("-dogs", "-email", "-name", "-phone_number", "-reviews")) for owner in Owner.query.all()]
+
+        response = make_response(
+            usernames,
+            200
+        )
+
+        return response
+
+    def post(self):
+        user = Owner.query.filter(Owner.username == request.get_json()["username"]).first()
+
+        session["user_id"] = user.id
+
+        return user.to_dict()
+
+api.add_resource(Login, "/login")
+
+class CheckSession(Resource):
+    def get(self):
+        user = Owner.query.filter(Owner.id == session.get("user_id")).first()
+
+        if user:
+            return user.to_dict()
+        
+        else:
+            response = make_response({"message": "401: Not Authorized"}, 401)
+
+            return response
+
+api.add_resource(CheckSession, "/check_session")
 
 class Owners(Resource):
     def get(self):
@@ -119,7 +175,7 @@ class OwnersById(Resource):
         
         return response
 
-api.add_resource(OwnersById, "/owners/<int:id>")
+api.add_resource(OwnersById, "/owners/<int:id>", endpoint="owner")
 
 class Dogs(Resource):
     def get(self):
