@@ -8,4 +8,4 @@ function NewReviewForm() {
     )
 }
 
-export default NewReviewForm;
+export default NewReviewForm

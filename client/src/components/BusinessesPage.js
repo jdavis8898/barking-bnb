@@ -12,7 +12,8 @@ function BusinessesPage() {
 
     useEffect(() => {
         fetch("/businesses")
-            .then(resp => resp.json()).then(setBusinesses)
+            .then(resp => resp.json())
+            .then(setBusinesses)
     }, [])
 
     function onHandleSearchChange(e) {
@@ -51,4 +52,4 @@ function BusinessesPage() {
     )
 }
 
-export default BusinessesPage;
+export default BusinessesPage
