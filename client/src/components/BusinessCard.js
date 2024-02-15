@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 function BusinessCard({ business }) {
     return (
-        <li className="business_card">
+        <li className="card">
             <div className="card_content">
                 <Link to={`/businesses/${business.id}`}>
                     <h4 className="card_title">

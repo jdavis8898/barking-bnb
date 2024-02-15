@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 
 function Login({ onLogin }) {
@@ -9,7 +9,7 @@ function Login({ onLogin }) {
         fetch("/login", {
             method: "POST",
             headers: {
-                "Conent-Type": "application/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({ username }),
         }).then(resp => {

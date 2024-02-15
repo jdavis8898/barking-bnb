@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React from "react"
+import { Routes, Route, Link } from "react-router-dom"
 import BusinessesPage from "./BusinessesPage"
 
 function Home() {
@@ -13,4 +13,4 @@ function Home() {
     )
 }
 
-export default Home;
+export default Home
