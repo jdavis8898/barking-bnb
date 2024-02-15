@@ -1,39 +1,50 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-function NavBar() {
+function NavBar({ user, onLogout }) {
+    function handleLogout() {
+        fetch("/logout", {
+            method: "DELETE",
+        }).then(() => onLogout())
+    }
+
     return (
-        <main>
-            <header>
-                <nav>
-                    <div className="navigation">
-                        <Link
-                            className="title"
-                            to="/">
-                            <h1>
-                                Barking B&B
-                            </h1>
-                        </Link>
-                        <Link
-                            className="nav-button"
-                            to="/add_review">
-                            Add a Review
-                        </Link>
-                        <Link
-                            className="nav-button"
-                            to="/my_profile">
-                            My profile
-                        </Link>
-                        <Link
-                            className="login-button"
-                            to="/login">
-                            Login
-                        </Link>
+        <header>
+            <div className="navigation">
+                <Link
+                    className="title"
+                    to="/">
+                    <h1>
+                        Barking B&B
+                    </h1>
+                </Link>
+                <Link
+                    className="nav-button"
+                    to="/add_review">
+                    Add a Review
+                </Link>
+                <Link
+                    className="nav-button"
+                    to="/my_profile">
+                    My profile
+                </Link>
+                {user ? (
+                    <div>
+                        <p>
+                            Welcome, {user.name}!
+                        </p>
+                        <button onClick={handleLogout}>Logout</button>
                     </div>
-                </nav>
-            </header>
-        </main>
+                ) : (
+                    <Link
+                        className="login-button"
+                        to="/login">
+                        Login
+                    </Link>
+                )}
+            </div>
+        </header>
     )
 }
 
-export default NavBar;
+export default NavBar

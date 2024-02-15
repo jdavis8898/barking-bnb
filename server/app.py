@@ -33,26 +33,13 @@ api = Api(app)
 def index():
     return '<h1>Project Server</h1>'
 
-# @app.route("/sessions/<string:key>", methods=["GET"])
-# def show_session(key):
-#     response = make_response({
-#         'session': {
-#             'session_key': key,
-#             'session_value': session[key],
-#             'session_accessed': session.accessed,
-#         },
-#         'cookies': [{cookie: request.cookies[cookie]}
-#             for cookie in request.cookies],
-#     }, 200)
 
-#     return response
+@app.before_request
+def check_if_logged_in():
+    if not session["user_id"] and request.endpoint == "owner":
+        response = make_response({"error": "Unauthorized"}, 401)
 
-# @app.before_request
-# def check_if_logged_in():
-#     if not session["user_id"] and request.endpoint == "owner":
-#         response = make_response({"error": "Unauthorized"}, 401)
-
-#         return response
+        return response
 
 class Login(Resource):
     def post(self):
@@ -83,6 +70,19 @@ class CheckSession(Resource):
             return response
 
 api.add_resource(CheckSession, "/check_session")
+
+class Logout(Resource):
+    def delete(self):
+        session["user_id"] = None
+
+        response = make_response(
+            {},
+            204
+        )
+
+        return response
+
+api.add_resource(Logout, "/logout")
 
 class Owners(Resource):
     def get(self):

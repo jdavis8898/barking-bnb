@@ -15,4 +15,4 @@ function BusinessList({ businesses, searchTerm, onHandleSearchChange }) {
     )
 }
 
-export default BusinessList;
+export default BusinessList

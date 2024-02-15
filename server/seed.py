@@ -30,7 +30,7 @@ def create_owners():
 def create_dogs(owners):
     dogs = []
     names = []
-    for _ in range(5):
+    for _ in range(50):
         name = fake.name()
         while name in names:
             name = fake.name()

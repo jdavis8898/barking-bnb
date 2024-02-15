@@ -20,7 +20,7 @@ class Owner(db.Model, SerializerMixin):
     name = db.Column(db.String)
     phone_number = db.Column(db.String)
     email = db.Column(db.String)
-    username = db.Column(db.String)
+    username = db.Column(db.String, unique=True)
 
     # Relationsips
     dogs = db.relationship("Dog", back_populates = "owner", cascade = "all, delete-orphan")

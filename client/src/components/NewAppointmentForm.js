@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 
 function NewAppointmentForm({ businessID }) {
@@ -14,15 +14,15 @@ function NewAppointmentForm({ businessID }) {
     });
 
     function handleChange(e) {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         setFormData((prevData) => ({
             ...prevData,
-            [name]: value,
-        }));
+            [name]: value
+        }))
     }
 
     function handleSubmit(e) {
-        e.preventDefault();
+        e.preventDefault()
 
         const apptPrice = Math.random() * 100
         const apptInTime = parseInt(e.target.in_time.value)
@@ -55,7 +55,6 @@ function NewAppointmentForm({ businessID }) {
         })
             .then((resp) => resp.json())
             .then((newAppointment) => {
-                console.log(newAppointment)
                 console.log("Need to add to owner once that is built")
 
                 setFormData({
@@ -66,7 +65,7 @@ function NewAppointmentForm({ businessID }) {
                     out_date: "",
                     dog_id: "",
                     business_id: 0
-                });
+                })
             })
             .catch((error) => {
                 console.error("Error creating new appointment:", error);

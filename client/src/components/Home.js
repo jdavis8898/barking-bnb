@@ -1,6 +1,5 @@
 import React from "react"
-import { Routes, Route, Link } from "react-router-dom"
-import BusinessesPage from "./BusinessesPage"
+import { Link } from "react-router-dom"
 
 function Home() {
     return (
@@ -8,7 +7,6 @@ function Home() {
             <Link to={`/businesses`}>
                 <button>Browse all doggie daycares</button>
             </Link>
-            <BusinessesPage />
         </div>
     )
 }
