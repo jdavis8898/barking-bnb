@@ -5,7 +5,7 @@
 # Remote library imports
 from models import db, Owner, Dog, Business, Review, Appointment
 from flask_migrate import Migrate
-from flask import Flask, request, make_response
+from flask import Flask, request, make_response, session
 from flask_restful import Api, Resource
 import os
 
@@ -19,6 +19,7 @@ DATABASE = os.environ.get(
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = b'\x9a\xba\xfaJ8\x1f\xd6\xa0G\x0b\x8e\x1a\x93\xd9\xd1\xc2'
 app.json.compact = False
 
 migrate = Migrate(app, db)
@@ -32,19 +33,19 @@ api = Api(app)
 def index():
     return '<h1>Project Server</h1>'
 
-@app.route("/sessions/<string:key>", methods=["GET"])
-def show_session(key):
-    response = make_response({
-        'session': {
-            'session_key': key,
-            'session_value': session[key],
-            'session_accessed': session.accessed,
-        },
-        'cookies': [{cookie: request.cookies[cookie]}
-            for cookie in request.cookies],
-    }, 200)
+# @app.route("/sessions/<string:key>", methods=["GET"])
+# def show_session(key):
+#     response = make_response({
+#         'session': {
+#             'session_key': key,
+#             'session_value': session[key],
+#             'session_accessed': session.accessed,
+#         },
+#         'cookies': [{cookie: request.cookies[cookie]}
+#             for cookie in request.cookies],
+#     }, 200)
 
-    return response
+#     return response
 
 # @app.before_request
 # def check_if_logged_in():
@@ -54,22 +55,18 @@ def show_session(key):
 #         return response
 
 class Login(Resource):
-    def get(self):
-        usernames = [owner.to_dict(rules=("-dogs", "-email", "-name", "-phone_number", "-reviews")) for owner in Owner.query.all()]
+    def post(self):
+        username = request.get_json()["username"]
+        user = Owner.query.filter(Owner.username == username).first()
+
+        session["user_id"] = user.id
 
         response = make_response(
-            usernames,
+            user.to_dict(),
             200
         )
 
         return response
-
-    def post(self):
-        user = Owner.query.filter(Owner.username == request.get_json()["username"]).first()
-
-        session["user_id"] = user.id
-
-        return user.to_dict()
 
 api.add_resource(Login, "/login")
 

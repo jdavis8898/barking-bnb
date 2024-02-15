@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 
 function Login({ onLogin }) {
     const [username, setUsername] = useState("")
 
-    function handleSubmit(e)
-    {
+    function handleSubmit(e) {
         e.preventDefault()
         fetch("/login", {
             method: "POST",
@@ -13,15 +12,18 @@ function Login({ onLogin }) {
                 "Conent-Type": "application/json",
             },
             body: JSON.stringify({ username }),
+        }).then(resp => {
+            if (resp.ok) {
+                resp.json().then(user => onLogin(user))
+            }
         })
-            .then(resp => resp.json())
-            .then(user => onLogin(user));
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <input
                 type="text"
+                id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
