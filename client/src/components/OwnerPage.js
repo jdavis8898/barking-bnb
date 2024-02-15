@@ -14,29 +14,30 @@ function OwnerPage({ owner, handleOwnerUpdate }) {
             })
     }, [])
 
-    // useEffect(() => {
-    //     fetch("/dogs")
-    //         .then(resp => resp.json()).then(dogData => {
-    //             const updatedDogs = dogData.filter(dog => {
-    //                 if (dog.owner === owner) {
-    //                     return true
-    //                 }
-    //             })
-    //             setDogs(updatedDogs)
-    //         })
-    // }, [])
-
-
     function handleDeletePup(deleteDog) {
+
+        const updatedDogs = dogs.filter(dog => dog.id !== deleteDog.id)
+
         fetch(`/dogs/${deleteDog.id}`, {
             method: "DELETE",
         })
-            .then(resp => resp.json())
-            .then(deletedDogResponse => {
-                const updatedDogs = dogs.filter(dog => dog.id !== deleteDog.id)
+            .then(resp => {
+                console.log(resp)
+                if (resp.ok) {
+                    return resp.json()
+                }
+                else {
+                    throw new Error("Failed to delete dog")
+                }
+            })
+            .then(() => {
                 setDogs(updatedDogs)
                 handleOwnerUpdate(owner)
+                console.log("Hello. Work!")
+                console.log(updatedDogs)
+                console.log(`from owner page ${owner}`)
             })
+            .catch(error => { console.error("Not working", error) })
     }
 
 

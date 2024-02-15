@@ -255,7 +255,7 @@ class DogsById(Resource):
         if dog:
             db.session.delete(dog)
             db.session.commit()
-            response = make_response({}, 204)
+            response = make_response({}, 200)
         
         else:
             response = make_response({"error": "Dog not found"}, 404)

@@ -10,17 +10,18 @@ import BusinessesPage from "./BusinessesPage"
 function App() {
   const [owner, setOwner] = useState(null)
 
-  // useEffect(() => {
-  //   fetch("/check_session")
-  //     .then(resp => {
-  //       if (resp.ok) {
-  //         resp.json()
-  //           .then(user => setUser(user))
-  //       }
-  //     })
-  // }, [])
+  useEffect(() => {
+    fetch("/check_session")
+      .then(resp => {
+        if (resp.ok) {
+          resp.json()
+            .then(owner => setOwner(owner))
+        }
+      })
+  }, [])
 
   function handleLogin(owner) {
+    console.log(`from app page ${owner}`)
     setOwner(owner)
   }
 
