@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-function NavBar({ user, onLogout }) {
+function NavBar({ owner, onLogout }) {
     function handleLogout() {
         fetch("/logout", {
             method: "DELETE",
@@ -28,10 +28,10 @@ function NavBar({ user, onLogout }) {
                     to="/my_profile">
                     My profile
                 </Link>
-                {user ? (
+                {owner ? (
                     <div>
                         <p>
-                            Welcome, {user.name}!
+                            Welcome, {owner.name}!
                         </p>
                         <button onClick={handleLogout}>Logout</button>
                     </div>

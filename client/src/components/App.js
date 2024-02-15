@@ -8,7 +8,7 @@ import BusinessesPage from "./BusinessesPage"
 
 
 function App() {
-  const [user, setUser] = useState(null)
+  const [owner, setOwner] = useState(null)
 
   // useEffect(() => {
   //   fetch("/check_session")
@@ -20,21 +20,21 @@ function App() {
   //     })
   // }, [])
 
-  function handleLogin(user) {
-    setUser(user)
+  function handleLogin(owner) {
+    setOwner(owner)
   }
 
   function handleLogout() {
-    setUser(null)
+    setOwner(null)
   }
 
   return (
     <div className="app">
-      <NavBar user={user} onLogout={handleLogout} />
+      <NavBar owner={owner} onLogout={handleLogout} />
       <Routes>
         <Route
           path="/"
-          element={<Home user={user} />}
+          element={<Home />}
         />
         <Route
           path="/login"
@@ -42,7 +42,7 @@ function App() {
         />
         <Route
           path="/my_profile"
-          element={<OwnerPage user={user} handleUserUpdate={handleLogin} />}
+          element={<OwnerPage owner={owner} handleOwnerUpdate={handleLogin} />}
         />
       </Routes>
       <BusinessesPage />

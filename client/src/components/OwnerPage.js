@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react"
-import { Routes, Route } from "react-router-dom"
 import OwnerDetail from "./OwnerDetail"
 import AddDogForm from "./AddDogForm"
 
-function OwnerPage({ user, handleUserUpdate }) {
-    const [dogs, setDogs] = useState([user.dogs])
+function OwnerPage({ owner, handleOwnerUpdate }) {
+    const [dogs, setDogs] = useState([])
+
+    useEffect(() => {
+        fetch(`/owners/${owner.id}`)
+            .then(resp => resp.json())
+            .then(updatedOwner => {
+                handleOwnerUpdate(updatedOwner)
+                setDogs(updatedOwner.dogs)
+            })
+    }, [])
 
     // useEffect(() => {
     //     fetch("/dogs")
     //         .then(resp => resp.json()).then(dogData => {
     //             const updatedDogs = dogData.filter(dog => {
-    //                 if (dog.owner === user) {
+    //                 if (dog.owner === owner) {
     //                     return true
     //                 }
     //             })
@@ -25,22 +33,22 @@ function OwnerPage({ user, handleUserUpdate }) {
         })
             .then(resp => resp.json())
             .then(deletedDogResponse => {
-                const updatedDogs = user.dogs.filter(dog => dog.id !== deleteDog.id)
+                const updatedDogs = dogs.filter(dog => dog.id !== deleteDog.id)
                 setDogs(updatedDogs)
+                handleOwnerUpdate(owner)
             })
     }
 
 
     return (
         <div>
-            <div>{user.dog}</div>
-            <OwnerDetail user={user} dogs={dogs} handleDeletePup={handleDeletePup} handleUserUpdate={handleUserUpdate} />
-            <Routes>
+            <OwnerDetail owner={owner} dogs={dogs} handleDeletePup={handleDeletePup} handleOwnerUpdate={handleOwnerUpdate} />
+            {/* <Routes>
                 <Route
                     path="/add_dog"
-                    element={<AddDogForm user={user} />}
+                    element={<AddDogForm owner={owner} />}
                 />
-            </Routes>
+            </Routes> */}
             {/* <AddDogForm user={user} handleUserUpdate={handleUserUpdate}/> */}
         </div>
     )

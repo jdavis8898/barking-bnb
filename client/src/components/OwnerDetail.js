@@ -1,9 +1,8 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
 import DogCard from "./DogCard"
 import AddDogForm from "./AddDogForm"
 
-function OwnerDetail({ user, dogs, handleDeletePup, handleUserUpdate }) {
+function OwnerDetail({ owner, dogs, handleDeletePup, handleOwnerUpdate }) {
     const initialForm = {
         phone_number: "",
         email: "",
@@ -28,7 +27,7 @@ function OwnerDetail({ user, dogs, handleDeletePup, handleUserUpdate }) {
     function handleSubmit(e) {
         e.preventDefault()
 
-        fetch(`/owners/${user.id}`, {
+        fetch(`/owners/${owner.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -36,7 +35,7 @@ function OwnerDetail({ user, dogs, handleDeletePup, handleUserUpdate }) {
             body: JSON.stringify(formData)
         })
             .then(resp => resp.json())
-            .then(editedOwner => handleUserUpdate(editedOwner))
+            .then(editedOwner => handleOwnerUpdate(editedOwner))
 
         setIsEditing(!isEditing)
     }
@@ -51,14 +50,14 @@ function OwnerDetail({ user, dogs, handleDeletePup, handleUserUpdate }) {
                         <input
                             type="text"
                             name="phone_number"
-                            placeholder={user.phone_number}
+                            placeholder={owner.phone_number}
                             value={formData.phone_number}
                             onChange={handleChange}
                         />
                         <input
                             type="text"
                             name="email"
-                            placeholder={user.email}
+                            placeholder={owner.email}
                             value={formData.email}
                             onChange={handleChange}
                         />
@@ -67,16 +66,16 @@ function OwnerDetail({ user, dogs, handleDeletePup, handleUserUpdate }) {
                 </div>
             ) : (
                 <div className="owner_info">
-                    <p>phone_number: {user.phone_number}</p>
-                    <p>email: {user.email}</p>
-                    <p>username: {user.username}</p>
+                    <p>phone_number: {owner.phone_number}</p>
+                    <p>email: {owner.email}</p>
+                    <p>username: {owner.username}</p>
                     <button type="click" onClick={handleClickEditing}>Edit</button>
                 </div>
             )}
             <h3>Your Pups!</h3>
-            {dogs.length > 0 ? (
+            {dogs.length ? (
                 dogs.map(dog =>
-                    <DogCard key={dog.id} dog={dog} handleDeletePup={handleDeletePup} />)
+                    <DogCard key={dog.id} dog={dog} owner={owner} handleDeletePup={handleDeletePup} />)
             ) : (
                 <p>No Pups to Show!</p>
             )}

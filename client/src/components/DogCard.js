@@ -1,6 +1,6 @@
 import React from "react"
 
-function DogCard({ dog, handleDeletePup }) {
+function DogCard({ dog, owner, handleDeletePup }) {
     function handleClick() {
         handleDeletePup(dog)
     }
