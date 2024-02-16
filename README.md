@@ -7,10 +7,10 @@ Barking B&B is an application that will allow users to sign their pups up to a d
 ## **ERD**
 ![ERD](https://i.imgur.com/KM4JX8v.png)
 ## **MVP**
-C - owners, dogs, reviews, businesses, appointments\
+C - appointments\
 R - owners, dogs, reviews, businesses, appointments\
-U - owners, dogs, reviews, businesses, appointments\
-D - owners, dogs, reviews, businesses, appointments
+U - owners, dogs, appointments\
+D - dogs, appointments
 ## **Backend**
 ### Models
 - Owners
@@ -122,7 +122,13 @@ DELETE /appointments/<int:id>
 - Friday (2/16): Present!
 
 ## **Tools/Libraries Utilized**
-- SQLite
-- Datetime
+- datetime
 - Drawio
 - dbdiargram
+- Faker
+
+## **Future Plans**
+- Convert from an application that can help make appointments an dog daycares to an application that is for reviewing all forms of animals business/locations
+- Styling!
+- View other user's profiles
+    - Have users be able to mark if they want their profile viewable or not

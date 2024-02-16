@@ -5,7 +5,7 @@ import AddDogForm from "./AddDogForm"
 function OwnerDetail({ owner, dogs, handleDeletePup, handleOwnerUpdate }) {
     const initialForm = {
         phone_number: "",
-        email: "",
+        email: ""
     }
 
     const [isEditing, setIsEditing] = useState(false)

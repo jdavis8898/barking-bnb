@@ -1,4 +1,5 @@
 import React from "react"
+import AppointmentsPage from "./AppointmentsPage"
 
 function DogCard({ dog, owner, handleDeletePup }) {
     function handleClick() {
@@ -13,7 +14,9 @@ function DogCard({ dog, owner, handleDeletePup }) {
             <p className="dog_info">
                 Breed: {dog.breed}
             </p>
-            <button className="delete" onClick={handleClick}>Delete</button>
+            {/* <h5>Appointments:</h5>
+            <AppointmentsPage dog={dog} /> */}
+            <button className="delete" onClick={handleClick}>Delete Dog</button>
         </div>
     )
 }

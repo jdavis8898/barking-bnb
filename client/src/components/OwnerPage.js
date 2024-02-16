@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
+import { Routes, Route } from "react-router-dom"
 import OwnerDetail from "./OwnerDetail"
 import AddDogForm from "./AddDogForm"
+import OwnerAppointments from "./AppointmentsPage"
 
 function OwnerPage({ owner, handleOwnerUpdate }) {
     const [dogs, setDogs] = useState([])
@@ -22,7 +24,6 @@ function OwnerPage({ owner, handleOwnerUpdate }) {
             method: "DELETE",
         })
             .then(resp => {
-                console.log(resp)
                 if (resp.ok) {
                     return resp.json()
                 }
@@ -33,9 +34,6 @@ function OwnerPage({ owner, handleOwnerUpdate }) {
             .then(() => {
                 setDogs(updatedDogs)
                 handleOwnerUpdate(owner)
-                console.log("Hello. Work!")
-                console.log(updatedDogs)
-                console.log(`from owner page ${owner}`)
             })
             .catch(error => { console.error("Not working", error) })
     }
@@ -47,10 +45,10 @@ function OwnerPage({ owner, handleOwnerUpdate }) {
             {/* <Routes>
                 <Route
                     path="/add_dog"
-                    element={<AddDogForm owner={owner} />}
+                    element={<AddDogForm owner={owner} handleOwnerUpdate={handleOwnerUpdate} />}
                 />
             </Routes> */}
-            {/* <AddDogForm user={user} handleUserUpdate={handleUserUpdate}/> */}
+            {/* <AddDogForm owner={owner} handleOwnerUpdate={handleOwnerUpdate} /> */}
         </div>
     )
 }

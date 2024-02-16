@@ -34,22 +34,22 @@ def index():
     return '<h1>Project Server</h1>'
 
 
-@app.before_request
-def check_if_logged_in():
-    if not session["user_id"] and request.endpoint == "owner":
-        response = make_response({"error": "Unauthorized"}, 401)
+# @app.before_request
+# def check_if_logged_in():
+#     if not session["user_id"] and request.endpoint == "owner":
+#         response = make_response({"error": "Unauthorized"}, 401)
 
-        return response
+#         return response
 
 class Login(Resource):
     def post(self):
         username = request.get_json()["username"]
-        user = Owner.query.filter(Owner.username == username).first()
+        owner = Owner.query.filter(Owner.username == username).first()
 
-        session["user_id"] = user.id
+        session["user_id"] = owner.id
 
         response = make_response(
-            user.to_dict(),
+            owner.to_dict(),
             200
         )
 
@@ -77,7 +77,7 @@ class Logout(Resource):
 
         response = make_response(
             {},
-            204
+            200
         )
 
         return response
@@ -165,7 +165,7 @@ class OwnersById(Resource):
         if owner:
             db.session.delete(owner)
             db.session.commit()
-            response = make_response({}, 204)
+            response = make_response({}, 200)
         
         else:
             response = make_response({"error": "Owner not found"}, 404)
@@ -176,7 +176,7 @@ api.add_resource(OwnersById, "/owners/<int:id>", endpoint="owner")
 
 class Dogs(Resource):
     def get(self):
-        dogs = [dog.to_dict(rules=("-reviews", "-appointments", "-owner.reviews")) for dog in Dog.query.all()]
+        dogs = [dog.to_dict(rules=("-reviews", "-owner.reviews")) for dog in Dog.query.all()]
 
         response = make_response(
             dogs,
@@ -345,7 +345,7 @@ class BusinessesById(Resource):
         if business:
             db.session.delete(business)
             db.session.commit()
-            response = make_response({}, 204)
+            response = make_response({}, 200)
         
         else:
             response = make_response({"error": "Business not found"}, 404)
@@ -436,7 +436,7 @@ class ReviewsById(Resource):
         if review:
             db.session.delete(review)
             db.session.commit()
-            response = make_response({}, 204)
+            response = make_response({}, 200)
         
         else:
             response = make_response({"error": "Review not found"}, 404)
@@ -530,7 +530,7 @@ class AppointmentsById(Resource):
         if appointment:
             db.session.delete(appointment)
             db.session.commit()
-            response = make_response({}, 204)
+            response = make_response({}, 200)
         
         else:
             response = make_response({"error": "Appointment not found"}, 404)
