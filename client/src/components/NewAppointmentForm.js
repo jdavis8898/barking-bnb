@@ -24,7 +24,7 @@ function NewAppointmentForm({ businessID }) {
     function handleSubmit(e) {
         e.preventDefault()
 
-        const apptPrice = Math.random() * 100
+        const apptPrice = String(Math.random() * 100).slice(0, 5)
         const apptInTime = parseInt(e.target.in_time.value)
         const apptOutTime = parseInt(e.target.out_time.value)
         const apptInDate = e.target.in_date.value
